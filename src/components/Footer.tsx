@@ -89,7 +89,7 @@ const Footer = () => {
         {/* ALT KISIM: Telif Hakları */}
         <div className="pt-2.5 border-t border-white/5 flex flex-row justify-between items-center opacity-40">
           <p className="text-gray-500 text-[6px] md:text-[8px] font-black uppercase tracking-widest italic">
-            © 2026 ALFA EĞİTİM.
+            © 2026 ALFA EĞİTİM KURUMLARI. Tüm hakları saklıdır.
           </p>
           <div className="flex items-center space-x-1 text-gray-500 text-[6px] font-bold">
             <span>BY</span>
