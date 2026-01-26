@@ -6,22 +6,48 @@
   --color-alfa-koyu: #111827;
 }
 
-/* Global Smooth Scroll Ayarı */
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Navigasyon barı sticky (yapışkan) olduğu için 
-       kaydırma yapıldığında başlığın altında kalmaması için ofset ekliyoruz */
-    scroll-padding-top: 100px; 
+    scroll-padding-top: 100px;
+    /* iOS Safari için akıcı kaydırma desteği */
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
     @apply bg-white text-alfa-koyu antialiased;
+    /* iOS'ta metin boyutunun yatay modda otomatik büyümesini engeller */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* iOS Safari varsayılan input stillerini sıfırlama */
+  input, select, textarea {
+    /* iOS'un kendi eklediği iç gölge ve stilleri siler */
+    -webkit-appearance: none;
+    appearance: none;
+    /* Odaklanıldığında (focus) iOS'un otomatik zoom yapmasını engellemek için 
+       yazı boyutunu 16px (base) seviyesinde tutmalısın. */
+    font-size: 16px !important;
+  }
+
+  /* Butonlar için iOS dokunma tepkisini iyileştirme */
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
-/* Sayfa içi geçişleri daha akıcı hale getiren yardımcı sınıf */
+/* Seçim rengi */
 ::selection {
   background-color: var(--color-alfa-bordo);
   color: white;
+}
+
+/* Form elemanları için ek düzeltme (iOS'ta select okunu kaybetmemek için) */
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 1rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
 }

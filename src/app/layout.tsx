@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer"; // Footer'ı içe aktardık
-import type { Metadata } from "next";
+import Footer from "@/components/Footer";
+import type { Metadata, Viewport } from "next"; // Viewport tipini ekledik
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+// iOS'ta otomatik zoom ve kaymaları engellemek için viewport ayarı
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1, // Kullanıcının istemsizce zoom yapmasını engeller (iOS formu bozmasın diye)
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "Torbalı Alfa Eğitim Kurumları | Başarıya Giden Yol",
@@ -33,9 +41,12 @@ export default function RootLayout({
     <html lang="tr" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white flex flex-col min-h-screen`}>
         <Navbar />
-        <main className="flex-grow">
+        
+        {/* flex-grow sayesinde içerik az olsa bile footer hep en altta kalır */}
+        <main className="flex-grow overflow-x-hidden"> 
           {children}
         </main>
+
         <Footer />
       </body>
     </html>
