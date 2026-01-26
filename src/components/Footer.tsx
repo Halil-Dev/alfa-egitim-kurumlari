@@ -3,6 +3,14 @@ import Image from 'next/image';
 import { Phone, MapPin, Instagram, Facebook, ArrowUpRight } from 'lucide-react';
 
 const Footer = () => {
+  // Navigasyon linklerini bir diziye aldık ki yönetimi kolay olsun ve hata payı kalmasın
+  const navigationLinks = [
+    { name: 'Ana Sayfa', path: '/' },
+    { name: 'Hakkımızda', path: '/#hakkimizda' },
+    { name: 'Kurslarımız', path: '/#kurslar' },
+    { name: 'İletişim', path: '/iletisim' },
+  ];
+
   return (
     <footer className="bg-[#111827] text-white pt-20 pb-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
@@ -16,6 +24,7 @@ const Footer = () => {
                 alt="Alfa Logo" 
                 width={50} 
                 height={50} 
+                priority
                 className="" 
               />
               <div className="flex flex-col">
@@ -28,18 +37,18 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* HIZLI LİNKLER */}
+          {/* HIZLI LİNKLER - Navigasyon Hatası Burada Çözüldü */}
           <div>
             <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-8">Hızlı Menü</h4>
             <ul className="space-y-4">
-              {['Ana Sayfa', 'Hakkımızda', 'Kurslarımız', 'İletişim'].map((item) => (
-                <li key={item}>
+              {navigationLinks.map((item) => (
+                <li key={item.name}>
                   <Link 
-                    href={item === 'İletişim' ? '/iletisim' : `/#${item.toLowerCase().replace('ı', 'i')}`}
+                    href={item.path}
                     className="text-gray-400 hover:text-[#8B1A1A] transition-colors text-sm font-bold flex items-center group"
                   >
                     <ArrowUpRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -60,7 +69,10 @@ const Footer = () => {
                 <div className="bg-white/5 p-2 rounded-lg group-hover:bg-[#8B1A1A]/20 transition-colors">
                   <Phone className="text-[#8B1A1A] w-5 h-5" />
                 </div>
-                <span className="text-gray-400 text-sm font-black tracking-tighter">0501 085 20 35</span>
+                {/* Telefon linki eklendi - Tıklayınca arama yapar */}
+                <a href="tel:+905010852035" className="text-gray-400 hover:text-white transition-colors text-sm font-black tracking-tighter">
+                  0501 085 20 35
+                </a>
               </li>
             </ul>
           </div>
@@ -69,10 +81,10 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-8">Takip Edin</h4>
             <div className="flex space-x-4">
-              <a href="#" className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-[#8B1A1A] transition-all hover:-translate-y-1 shadow-xl">
+              <a href="https://www.instagram.com/torbalialfa/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-[#8B1A1A] transition-all hover:-translate-y-1 shadow-xl">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-[#8B1A1A] transition-all hover:-translate-y-1 shadow-xl">
+              <a href="https://www.facebook.com/p/Alfa-E%C4%9Fitim-Kurumlar%C4%B1-plus-100090747663629/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center hover:bg-[#8B1A1A] transition-all hover:-translate-y-1 shadow-xl">
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
@@ -84,7 +96,7 @@ const Footer = () => {
 
         {/* ALT ÇİZGİ VE TELİF HAKKI */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-gray-500 text-[11px] font-black uppercase tracking-widest italic">
+          <p className="text-gray-500 text-[11px] font-black uppercase tracking-widest italic text-center md:text-left">
             © 2026 ALFA EĞİTİM KURUMLARI. TÜM HAKLARI SAKLIDIR.
           </p>
           <div className="flex items-center space-x-2 text-gray-500 text-[10px] font-bold">
