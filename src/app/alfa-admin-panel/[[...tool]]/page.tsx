@@ -1,19 +1,20 @@
+'use client'
+
 /**
- * This route is responsible for the built-in authoring environment using Sanity Studio.
- * All routes under your studio path is handled by this file using Next.js' catch-all routes:
- * https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes
- *
- * You can learn more about the next-sanity package here:
- * https://github.com/sanity-io/next-sanity
+ * Bu rota, Sanity Studio'nun yerleşik yazma ortamından sorumludur.
  */
 
 import { NextStudio } from 'next-sanity/studio'
 import config from '../../../../sanity.config'
 
-export const dynamic = 'force-static'
-
-export { metadata, viewport } from 'next-sanity/studio'
+// Metadata ve viewport'u client bileşeninde doğrudan export edemediğimiz için 
+// eğer gerekirse bunları ayrı bir layout dosyasında tutmak daha sağlıklıdır.
+// Şimdilik sadece Studio'nun çalışmasına odaklanıyoruz.
 
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return (
+    <div className="min-h-screen">
+      <NextStudio config={config} />
+    </div>
+  )
 }

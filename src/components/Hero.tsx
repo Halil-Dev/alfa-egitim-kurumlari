@@ -1,7 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { client, urlFor } from '@/sanity/lib/client';
 
-const Hero = () => {
+// Sanity'den aktif afiş verisini çeken fonksiyon
+async function getHeroData() {
+  // isActive olan en son kaydı getir
+  const query = `*[_type == "hero" && isActive == true][0]`;
+  const data = await client.fetch(query);
+  return data;
+}
+
+const Hero = async () => {
+  const heroData = await getHeroData();
+
+  // Sanity'den veri gelmezse kullanılacak yedekler
+  const badgeText = heroData?.badgeText || "2026 KAYIT DÖNEMİ BAŞLADI";
+  const mainImage = heroData?.mainImage 
+    ? urlFor(heroData.mainImage).url() 
+    : "/afis.jpg";
+
   const heroStats = [
     { label: "Özel Yayınlar", value: "Yeni Nesil" },
   ];
@@ -14,10 +31,10 @@ const Hero = () => {
           {/* Sol Metin */}
           <div className="flex-1 text-center lg:text-left w-full">
             
-            {/* Rozet */}
+            {/* Rozet - Sanity'den besleniyor */}
             <div className="inline-block bg-[#8B1A1A] px-6 py-2 rounded-xl mb-8 shadow-lg shadow-red-900/20">
               <span className="text-white text-xs md:text-sm font-black tracking-[0.15em] uppercase">
-                2026 KAYIT DÖNEMİ BAŞLADI
+                {badgeText}
               </span>
             </div>
             
@@ -39,6 +56,7 @@ const Hero = () => {
               <a 
                 href="https://wa.me/905010852035" 
                 target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[#8B1A1A] text-white px-12 py-5 rounded-2xl font-[900] text-xl hover:bg-black transition-all text-center shadow-2xl shadow-red-900/30 uppercase tracking-tighter"
               >
                 WHATSAPP BİLGİ AL
@@ -52,7 +70,7 @@ const Hero = () => {
               </Link>
             </div>
 
-            {/* HERO STATS - İşte Burayı Mobilde Ortalanacak Şekilde Ekledim */}
+            {/* HERO STATS */}
             <div className="flex flex-row items-start justify-center lg:justify-start gap-8 md:gap-12 border-t border-gray-100 pt-10">
               {heroStats.map((stat, i) => (
                 <div key={i} className="flex flex-col items-center lg:items-start">
@@ -67,14 +85,14 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Sağ Afiş */}
+          {/* Sağ Afiş - Sanity'den gelen dinamik görsel */}
           <div className="flex-1 relative w-full max-w-[480px]">
             <div className="absolute inset-0 bg-[#8B1A1A]/10 blur-[120px] -z-10 rounded-full"></div>
             
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.4)] border-[12px] border-white transform lg:rotate-2 hover:rotate-0 transition-all duration-500">
               <Image 
-                src="/afis.jpg" 
-                alt="Deneme Sınavı Afişi" 
+                src={mainImage} 
+                alt="Alfa Eğitim Afiş" 
                 width={500} 
                 height={700} 
                 className="w-full h-auto object-cover"

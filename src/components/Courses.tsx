@@ -1,11 +1,26 @@
-const Courses = () => {
-  const courses = [
+import { client } from '@/sanity/lib/client'; // Sanity client'ını içe aktardık
+
+// Sanity'den verileri çeken fonksiyon
+async function getCourses() {
+  const query = `*[_type == "course"] | order(order asc)`; // Kursları sıralı getir
+  const data = await client.fetch(query);
+  return data;
+}
+
+const Courses = async () => {
+  // Sanity'den gelen gerçek veriler
+  const coursesFromSanity = await getCourses();
+
+  // Eğer Sanity boşsa sitenin boş kalmaması için yedek (fallback) veriler
+  const defaultCourses = [
     { name: "LGS Hazırlık", audience: "7. ve 8. Sınıf", features: ["Haftalık 16 Saat Ders", "Birebir Rehberlik", "Yeni Nesil Soru Çözümü"] },
     { name: "YKS Hazırlık", audience: "11, 12 ve Mezun", features: ["TYT-AYT Odaklı", "Haftalık Seri Denemeler", "Gece Kütüphanesi Etüdü"] },
     { name: "Ara Sınıf Destek", audience: "9. ve 10. Sınıf", features: ["Okul Yazılı Hazırlık", "Temel Oluşturma", "Analitik Düşünme"] }
   ];
 
-  // WhatsApp numaran ve mesaj şablonun
+  // Sanity'de veri varsa onu, yoksa yedekleri kullanıyoruz
+  const courses = coursesFromSanity.length > 0 ? coursesFromSanity : defaultCourses;
+
   const whatsappNumber = "905010852035";
 
   return (
@@ -17,15 +32,17 @@ const Courses = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {courses.map((course, i) => (
+          {courses.map((course: any, i: number) => (
             <div key={i} className="bg-white p-12 rounded-[4rem] shadow-xl border border-gray-100 flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
               <span className="bg-[#8B1A1A]/10 text-[#8B1A1A] px-4 py-1 rounded-full text-xs font-black uppercase mb-6">{course.audience}</span>
               <h4 className="text-3xl font-[1000] text-black mb-8 leading-none uppercase">{course.name}</h4>
+              
               <ul className="space-y-4 mb-10 flex-grow text-gray-500 font-bold">
-                {course.features.map((f, j) => <li key={j}>• {f}</li>)}
+                {course.features.map((f: string, j: number) => (
+                  <li key={j}>• {f}</li>
+                ))}
               </ul>
               
-              {/* WHATSAPP YÖNLENDİRMELİ BUTON */}
               <a 
                 href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Merhaba, ${course.name} programınız hakkında detaylı bilgi alabilir miyim?`)}`}
                 target="_blank"
