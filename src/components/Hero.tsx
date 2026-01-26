@@ -16,10 +16,6 @@ const Hero = async () => {
     ? urlFor(heroData.mainImage).url() 
     : "/afis.jpg";
 
-  const heroStats = [
-    { label: "Özel Yayınlar", value: "Yeni Nesil" },
-  ];
-
   return (
     <section className="relative pt-6 md:pt-12 pb-16 lg:pb-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -28,14 +24,14 @@ const Hero = async () => {
           {/* Sol Metin Alanı */}
           <div className="flex-1 text-center lg:text-left w-full order-2 lg:order-1">
             
-            {/* Rozet - Mobilde daha kibar */}
+            {/* Rozet */}
             <div className="inline-block bg-[#8B1A1A] px-4 py-1.5 md:px-6 md:py-2 rounded-lg md:rounded-xl mb-6 md:mb-8 shadow-lg shadow-red-900/20">
               <span className="text-white text-[10px] md:text-sm font-black tracking-[0.15em] uppercase">
                 {badgeText}
               </span>
             </div>
             
-            {/* Ana Başlık - Mobilde boyutları optimize edildi */}
+            {/* Ana Başlık */}
             <h1 className="text-3xl md:text-6xl lg:text-[82px] font-[1000] text-black leading-[1.1] lg:leading-[0.95] tracking-tight md:tracking-[-0.04em] mb-6 md:mb-10 uppercase">
               GELECEĞİ <br />
               <span className="text-[#8B1A1A]">ALFA EĞİTİM</span> <br className="hidden md:block" />
@@ -48,8 +44,8 @@ const Hero = async () => {
               <span className="block md:inline text-[#8B1A1A]"> Başarıyı şansa bırakmayın.</span>
             </p>
             
-            {/* BUTONLAR - MOBİLDE YAN YANA (ROW) */}
-            <div className="flex flex-row gap-3 justify-center lg:justify-start mb-10 md:mb-16">
+            {/* BUTONLAR - MOBİLDE YAN YANA */}
+            <div className="flex flex-row gap-3 justify-center lg:justify-start">
               <a 
                 href="https://wa.me/905010852035" 
                 target="_blank"
@@ -66,23 +62,9 @@ const Hero = async () => {
                 ÖN KAYIT FORMU
               </Link>
             </div>
-
-            {/* HERO STATS */}
-            <div className="flex flex-row items-start justify-center lg:justify-start gap-8 md:gap-12 border-t border-gray-100 pt-8">
-              {heroStats.map((stat, i) => (
-                <div key={i} className="flex flex-col items-center lg:items-start">
-                  <span className="text-2xl md:text-4xl font-[1000] text-black leading-none mb-2">
-                    {stat.value}
-                  </span>
-                  <span className="text-[9px] md:text-xs font-black text-gray-400 uppercase tracking-widest text-center lg:text-left leading-tight">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Sağ Afiş - Mobilde daha az yer kaplaması için küçültüldü */}
+          {/* Sağ Afiş */}
           <div className="flex-1 relative w-full max-w-[320px] md:max-w-[480px] order-1 lg:order-2">
             <div className="absolute inset-0 bg-[#8B1A1A]/10 blur-[80px] md:blur-[120px] -z-10 rounded-full"></div>
             

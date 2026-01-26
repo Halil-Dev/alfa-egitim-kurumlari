@@ -1,4 +1,4 @@
-"use client"; // Etkileşim için gerekli
+"use client";
 import { useState, useRef, useEffect } from 'react';
 import { client } from '@/sanity/lib/client';
 
@@ -7,7 +7,6 @@ const Courses = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const whatsappNumber = "905010852035";
 
-  // Veriyi Client-side'da çekiyoruz (veya props olarak alabilirsin)
   useEffect(() => {
     const fetchCourses = async () => {
       const query = `*[_type == "course"] | order(order asc)`;
@@ -33,25 +32,24 @@ const Courses = () => {
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-gray-50 overflow-hidden" id="kurslar">
+    <section className="py-12 lg:py-24 bg-gray-50 overflow-hidden" id="kurslar">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-end mb-10 lg:mb-16">
+        <div className="flex justify-between items-end mb-8 lg:mb-16">
           <div>
-            <h2 className="text-[#8B1A1A] font-black text-[10px] lg:text-sm uppercase tracking-[0.3em] mb-4">Eğitim Programlarımız</h2>
-            <h3 className="text-3xl lg:text-5xl font-[1000] text-black tracking-tighter uppercase text-left">KENDİNE UYGUN KURSU SEÇ</h3>
+            <h2 className="text-[#8B1A1A] font-black text-[10px] lg:text-sm uppercase tracking-[0.2em] mb-2">Eğitim Programlarımız</h2>
+            <h3 className="text-2xl lg:text-5xl font-[1000] text-black tracking-tighter uppercase text-left leading-none">KURS SEÇ</h3>
           </div>
           
-          {/* BUTONLAR (Sadece Mobilde/Tablette Görünür) */}
           <div className="flex gap-2 lg:hidden mb-1">
             <button 
               onClick={() => scroll('left')}
-              className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-[#8B1A1A] hover:text-white transition-all"
+              className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-black active:bg-[#8B1A1A] active:text-white transition-all border border-gray-100"
             >
               ←
             </button>
             <button 
               onClick={() => scroll('right')}
-              className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-black hover:bg-[#8B1A1A] hover:text-white transition-all"
+              className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-black active:bg-[#8B1A1A] active:text-white transition-all border border-gray-100"
             >
               →
             </button>
@@ -60,25 +58,27 @@ const Courses = () => {
 
         <div 
           ref={scrollRef}
-          className="flex lg:grid lg:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+          className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6"
         >
           {courses.map((course: any, i: number) => (
             <div 
               key={i} 
-              className="min-w-[90%] sm:min-w-[400px] lg:min-w-0 snap-center bg-white p-8 lg:p-12 rounded-[3rem] lg:rounded-[4rem] shadow-xl border border-gray-100 flex flex-col items-center text-center"
+              className="min-w-[80%] sm:min-w-[350px] lg:min-w-0 snap-center bg-white p-6 lg:p-12 rounded-[2.5rem] lg:rounded-[4rem] shadow-lg border border-gray-50 flex flex-col items-center text-center"
             >
-              <span className="bg-[#8B1A1A]/10 text-[#8B1A1A] px-4 py-1 rounded-full text-[10px] lg:text-xs font-black uppercase mb-6">{course.audience}</span>
-              <h4 className="text-2xl lg:text-3xl font-[1000] text-black mb-6 lg:mb-8 leading-none uppercase">{course.name}</h4>
+              <span className="bg-[#8B1A1A]/5 text-[#8B1A1A] px-3 py-1 rounded-full text-[9px] lg:text-xs font-black uppercase mb-4 tracking-wider">{course.audience}</span>
+              <h4 className="text-xl lg:text-3xl font-[1000] text-black mb-4 lg:mb-8 leading-tight uppercase">{course.name}</h4>
               
-              <ul className="space-y-3 lg:space-y-4 mb-8 lg:mb-10 flex-grow text-gray-500 font-bold text-sm lg:text-base">
+              <ul className="space-y-2 lg:space-y-4 mb-6 lg:mb-10 flex-grow text-gray-500 font-bold text-[11px] lg:text-base leading-snug">
                 {course.features.map((f: string, j: number) => (
-                  <li key={j}>• {f}</li>
+                  <li key={j} className="flex items-center justify-center gap-1">
+                    <span className="text-[#8B1A1A] opacity-50">•</span> {f}
+                  </li>
                 ))}
               </ul>
               
               <a 
                 href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Merhaba, ${course.name} programınız hakkında detaylı bilgi alabilir miyim?`)}`}
-                className="w-full bg-black text-white py-4 lg:py-5 rounded-full font-black uppercase tracking-widest text-[10px] lg:text-xs text-center"
+                className="w-full bg-black text-white py-3.5 lg:py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] lg:text-xs text-center shadow-lg active:scale-95 transition-transform"
               >
                 Detaylı Bilgi
               </a>
