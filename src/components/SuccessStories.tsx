@@ -2,7 +2,7 @@ const SuccessStories = () => {
   const stories = [
     { name: "Ece Yılmaz", result: "Torbalı Fen Lisesi", comment: "Birebir soru çözüm saatleri sayesinde eksiklerimi çok hızlı kapattım." },
     { name: "Mert Demir", result: "Ege Üniversitesi Tıp", comment: "Disiplinli deneme sınavı takvimi sınav stresimi yenmemi sağladı." },
-    { name: "Selin Ak", result: "İTÜ Mühendislik", comment: "Alfa Eğitim Kurumları benim için bir dershaneden çok aile ortamıydı." }
+    { name: "Halil Uysal", result: "yazılım Mühendisliği", comment: "Alfa Eğitim Kurumları benim için bir dershaneden çok aile ortamıydı." }
   ];
 
   return (
