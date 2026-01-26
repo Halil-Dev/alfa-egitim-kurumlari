@@ -16,7 +16,7 @@ const Footer = () => {
                 alt="Alfa Logo" 
                 width={50} 
                 height={50} 
-                className="brightness-0 invert" 
+                className="" 
               />
               <div className="flex flex-col">
                 <span className="font-[1000] text-xl tracking-tighter italic uppercase">ALFA</span>
