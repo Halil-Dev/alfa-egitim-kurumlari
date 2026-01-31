@@ -36,7 +36,7 @@ export default function Home() {
       <section className="py-12 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-2 uppercase tracking-tighter">
-            Neden Alfa Eğitim?
+            Neden Alfa Eğitim KURUMLARI?
           </h2>
           <div className="w-16 md:w-24 h-1.5 bg-[#8B1A1A] mx-auto mb-10 md:mb-16 rounded-full"></div>
           

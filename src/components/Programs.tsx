@@ -68,7 +68,7 @@ const Programs = () => {
               
               {/* WhatsApp Bilgi Al Butonu */}
               <a 
-                href={`https://wa.me/905XXXXXXXXX?text=${encodeURIComponent(p.title + " hakkında bilgi almak istiyorum.")}`}
+                href={`https://wa.me/905010852035?text=${encodeURIComponent(p.title + " hakkında bilgi almak istiyorum.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-full py-5 bg-black text-white text-xs font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-[#8B1A1A] transition-all duration-300 shadow-lg hover:shadow-[#8B1A1A]/30 gap-3"

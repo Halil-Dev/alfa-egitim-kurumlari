@@ -3,7 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 const WhatsApp = () => {
   return (
     <a 
-      href="https://wa.me/905444100368" 
+      href="https://wa.me/905010852035" 
       target="_blank"
       rel="noopener noreferrer"
       // bottom-24 yaparak mobilde footer'ın (mavi alanın) üzerine binmesini engelledik

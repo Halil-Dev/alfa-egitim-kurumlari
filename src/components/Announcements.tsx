@@ -1,3 +1,5 @@
+"use client"; // Scroll fonksiyonu için client component yaptık
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
@@ -8,83 +10,119 @@ function urlFor(source: any) {
   return builder.image(source);
 }
 
-async function getAnnouncements() {
-  const query = `*[_type == "announcement"] | order(date desc) {
-    _id,
-    title,
-    date,
-    content, 
-    image
-  }`;
-  const data = await client.fetch(query);
-  return data;
-}
+const Announcements = () => {
+  const [announcements, setAnnouncements] = useState<any[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-const Announcements = async () => {
-  const announcements = await getAnnouncements();
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      const query = `*[_type == "announcement"] | order(date desc) {
+        _id,
+        title,
+        date,
+        content, 
+        image
+      }`;
+      const data = await client.fetch(query);
+      setAnnouncements(data);
+    };
+    fetchAnnouncements();
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollAmount = clientWidth * 0.8;
+      const scrollTo = direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
 
   if (!announcements || announcements.length === 0) return null;
 
   return (
-    <section className="py-10 md:py-20 bg-gray-50" id="duyurular">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section className="py-12 lg:py-24 bg-gray-50 overflow-hidden" id="duyurular">
+      <div className="max-w-7xl mx-auto px-6">
         
-        {/* Başlık Alanı - Mobilde font küçültüldü */}
-        <div className="mb-6 md:mb-10 text-center md:text-left">
-          <h2 className="text-[#8B1A1A] font-black text-[10px] md:text-sm uppercase tracking-[0.2em] mb-1">Güncel</h2>
-          <h3 className="text-2xl md:text-5xl font-[1000] text-black tracking-tighter uppercase leading-none">ETKİNLİK & DUYURU</h3>
+        {/* Başlık ve Oklar */}
+        <div className="flex justify-between items-end mb-8 lg:mb-16">
+          <div>
+            <h2 className="text-[#8B1A1A] font-black text-[10px] lg:text-sm uppercase tracking-[0.2em] mb-2">Güncel</h2>
+            <h3 className="text-2xl lg:text-5xl font-[1000] text-black tracking-tighter uppercase leading-none">ETKİNLİK & DUYURU</h3>
+          </div>
+          
+          <div className="flex gap-2">
+            <button 
+              onClick={() => scroll('left')} 
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-black border border-gray-100 hover:bg-[#8B1A1A] hover:text-white transition-all"
+            >
+              ←
+            </button>
+            <button 
+              onClick={() => scroll('right')} 
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-black border border-gray-100 hover:bg-[#8B1A1A] hover:text-white transition-all"
+            >
+              →
+            </button>
+          </div>
         </div>
 
-        {/* Duyuru Listesi - Kartlar daha dar */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        {/* Kaydırılabilir Alan */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 lg:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-10 -mx-4 px-4"
+        >
           {announcements.map((item: any) => (
             <div 
               key={item._id} 
-              className="bg-white rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 flex flex-col sm:flex-row items-stretch group hover:shadow-md transition-all duration-500"
+              className="
+                min-w-[85%]       /* Mobilde %85 */
+                md:min-w-[45%]    /* Tablet %45 */
+                lg:min-w-[32%]    /* PC'de yaklaşık 3 kart yan yana */
+                snap-center bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-50 flex flex-col group hover:shadow-2xl transition-all duration-500
+              "
             >
-              {/* Görsel Alanı - Mobilde yükseklik h-44'e çekildi */}
-              <div className="relative w-full sm:w-2/5 h-44 sm:h-auto overflow-hidden shrink-0">
+              {/* Görsel Alanı */}
+              <div className="relative w-full h-48 md:h-64 overflow-hidden shrink-0">
                 {item.image ? (
                   <Image 
                     src={urlFor(item.image).url()} 
                     alt={item.title} 
                     fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">Görsel Yok</div>
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase text-xs">Görsel Yok</div>
                 )}
                 
                 {item.date && (
-                  <div className="absolute top-2 left-2 z-10 bg-[#8B1A1A] text-white px-2 py-0.5 rounded-md font-bold text-[9px]">
+                  <div className="absolute top-4 left-4 z-10 bg-[#8B1A1A] text-white px-3 py-1.5 rounded-xl font-black text-[10px] uppercase shadow-md">
                     {new Date(item.date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}
                   </div>
                 )}
               </div>
 
-              {/* Metin Alanı - Padding ve fontlar daraltıldı */}
-              <div className="flex-1 p-5 md:p-8 flex flex-col justify-between">
-                <div>
-                  <h4 className="text-base md:text-xl font-black text-black mb-2 leading-tight uppercase tracking-tight line-clamp-2">
+              {/* Metin Alanı */}
+              <div className="p-6 md:p-10 flex flex-col flex-grow justify-between">
+                <div className="mb-6">
+                  <h4 className="text-lg md:text-2xl font-black text-black mb-3 leading-tight uppercase tracking-tighter line-clamp-2 italic">
                     {item.title}
                   </h4>
-                  <p className="text-gray-500 text-[11px] md:text-sm font-bold mb-4 leading-snug line-clamp-2">
+                  <p className="text-gray-500 text-[12px] md:text-base font-bold leading-relaxed line-clamp-3">
                     {item.content}
                   </p>
                 </div>
                 
                 <Link 
                   href={`/duyuru/${item._id}`} 
-                  className="text-[#8B1A1A] font-black uppercase text-[10px] md:text-xs tracking-widest flex items-center gap-2 group/link mt-auto"
+                  className="w-full bg-black text-white py-4 md:py-5 rounded-2xl font-black uppercase text-[10px] md:text-xs tracking-[0.2em] text-center hover:bg-[#8B1A1A] transition-all shadow-lg active:scale-95"
                 >
-                  DETAYLARI GÖR 
-                  <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
+                  DETAYLARI İNCELE ↗
                 </Link>
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
