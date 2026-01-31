@@ -1,7 +1,22 @@
-import type {StructureResolver} from 'sanity/structure'
+import type { StructureBuilder } from 'sanity/structure'
 
-// https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure: StructureResolver = (S) =>
+export const structure = (S: StructureBuilder) =>
   S.list()
-    .title('Content')
-    .items(S.documentTypeListItems())
+    .title('İçerik Yönetimi')
+    .items([
+      // Site Genel Ayarlarını Singleton (Tekil) yapıyoruz
+      S.listItem()
+        .title('Site Genel Ayarları')
+        .id('settings')
+        .child(
+          S.document()
+            .schemaType('settings')
+            .documentId('settings')
+            .title('Site Genel Ayarları')
+        ),
+      S.divider(),
+      // Diğer şemaları buraya ekliyoruz
+      ...S.documentTypeListItems().filter(
+        (listItem) => !['settings'].includes(listItem.getId()!)
+      ),
+    ])
