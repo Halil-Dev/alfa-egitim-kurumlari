@@ -44,7 +44,7 @@ const Hero = async () => {
               <span className="block md:inline text-[#8B1A1A]"> Başarıyı şansa bırakmayın.</span>
             </p>
             
-            {/* BUTONLAR - MOBİLDE YAN YANA */}
+            {/* BUTONLAR */}
             <div className="flex flex-row gap-3 justify-center lg:justify-start">
               <a 
                 href="https://wa.me/905010852035" 
@@ -64,19 +64,24 @@ const Hero = async () => {
             </div>
           </div>
 
-          {/* Sağ Afiş */}
-          <div className="flex-1 relative w-full max-w-[320px] md:max-w-[480px] order-1 lg:order-2">
-            <div className="absolute inset-0 bg-[#8B1A1A]/10 blur-[80px] md:blur-[120px] -z-10 rounded-full"></div>
+          {/* Sağ Afiş - Hareketli Versiyon */}
+          <div className="flex-1 relative w-full max-w-[320px] md:max-w-[480px] order-1 lg:order-2 group cursor-pointer">
+            {/* Arka plan parlaması (Hover ile canlanır) */}
+            <div className="absolute inset-0 bg-[#8B1A1A]/10 blur-[80px] md:blur-[120px] -z-10 rounded-full group-hover:bg-[#8B1A1A]/30 transition-all duration-700"></div>
             
-            <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] md:border-[12px] border-white transform lg:rotate-2">
+            {/* Resim Kapsayıcı: Hover sınıfları burada */}
+            <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] md:border-[12px] border-white transition-all duration-500 ease-out transform lg:rotate-2 group-hover:rotate-0 group-hover:scale-105">
               <Image 
                 src={mainImage} 
                 alt="Alfa Eğitim Afiş" 
                 width={500} 
                 height={700} 
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover pointer-events-none"
                 priority
               />
+              
+              {/* Overlay Efekti (İsteğe bağlı: Üstüne gelince hafif bir parlama) */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#8B1A1A]/0 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           </div>
 
