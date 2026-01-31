@@ -39,7 +39,7 @@ const IletisimPage = () => {
     <main className="min-h-screen bg-white py-12 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* BAŞLIK ALANI - Mobilde fontlar küçültüldü */}
+        {/* BAŞLIK ALANI */}
         <div className="text-center mb-12 md:mb-20">
           <div className="inline-block bg-[#8B1A1A]/5 px-4 py-1.5 rounded-full mb-4">
             <span className="text-[#8B1A1A] font-black text-[10px] md:text-xs uppercase tracking-[0.4em]">Ön Kayıt Formu</span>
@@ -52,11 +52,10 @@ const IletisimPage = () => {
           </p>
         </div>
 
-        {/* FORM TASARIMI - Paddingler mobilde azaltıldı */}
+        {/* FORM TASARIMI */}
         <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] shadow-xl p-8 md:p-20 border border-gray-100 mb-16 md:mb-32 relative overflow-hidden">
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 relative z-10">
             
-            {/* Form Inputları - Mobilde py-4'e çekildi */}
             {[
               { label: "Öğrenci Ad Soyad", name: "ad_soyad", type: "text", placeholder: "Halil Yılmaz", pattern: /[^a-zA-ZğüşıöçĞÜŞİÖÇ ]/g },
               { label: "Veli Telefon", name: "telefon", type: "tel", placeholder: "05xx xxx xx xx", pattern: /[^0-9]/g, max: 11 }
@@ -132,7 +131,7 @@ const IletisimPage = () => {
           </form>
         </div>
 
-        {/* ULAŞIM VE HARİTA - MOBİLDE YAN YANA / KOMPAKT GÖRÜNÜM */}
+        {/* ULAŞIM VE HARİTA - Bölünme Sorunu Burada Çözüldü */}
         <div className="bg-[#111827] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden flex flex-col lg:flex-row items-stretch border border-white/5">
           
           <div className="flex-1 p-8 md:p-20 relative">
@@ -145,10 +144,9 @@ const IletisimPage = () => {
                 TORBALI'NIN <br /> <span className="text-[#8B1A1A]">MERKEZİNDEYİZ</span>
               </h3>
               
-              {/* Adres ve Telefon - Mobilde yan yana grid yapıldı */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10 mb-10">
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">📍</span>
+                  <span className="text-2xl shrink-0">📍</span>
                   <div>
                     <h4 className="text-[#8B1A1A] font-black text-[10px] uppercase tracking-widest mb-1">Adres</h4>
                     <p className="text-gray-300 font-bold text-sm md:text-xl leading-tight">Tepeköy, 4505 Sk. No:9 Torbalı</p>
@@ -156,16 +154,19 @@ const IletisimPage = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">📞</span>
-                  <div>
+                  <span className="text-2xl shrink-0">📞</span>
+                  <div className="min-w-0"> {/* Taşmayı engellemek için */}
                     <h4 className="text-[#8B1A1A] font-black text-[10px] uppercase tracking-widest mb-1">Hızlı Hat</h4>
-                    <p className="text-white font-[1000] text-lg md:text-4xl tracking-tighter">0501 085 20 35</p>
+                    {/* 'whitespace-nowrap' ekleyerek numaranın bölünmesini engelledik */}
+                    <p className="text-white font-[1000] text-lg md:text-3xl lg:text-4xl tracking-tighter whitespace-nowrap">
+                      0501 085 20 35
+                    </p>
                   </div>
                 </div>
               </div>
 
               <a 
-                href="https://www.google.com/maps/dir//Tepeköy,+4505.+Sk.+No:9+Daire:1,+35860+Torbal%C4%B1%2F%C4%B0zmir" 
+                href="https://www.google.com/maps/dir/?api=1&destination=ALFA+EĞİTİM+KURUMLARI+%2Bplus&destination_place_id=ChIJ_WdD5I9buRQRAfEUpJTe7bc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-full md:w-auto items-center justify-center bg-[#8B1A1A] text-white px-8 py-4 md:px-12 md:py-7 rounded-2xl md:rounded-[2rem] font-black uppercase tracking-[0.2em] text-[10px] md:text-xs hover:bg-white hover:text-black transition-all"
@@ -175,10 +176,9 @@ const IletisimPage = () => {
             </div>
           </div>
 
-          {/* Harita - Mobilde yüksekliği 300px'e sabitlendi */}
           <div className="flex-1 h-[300px] lg:h-auto relative grayscale opacity-80">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3135.5927582531086!2d27.3621482!3d38.2081125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14be8bc641d40173%3A0xc07817924c8868df!2zVGVwZWvDtnksIDQ1MDUuIFNrLiBObzo5IERhaXJlOjEsIDM1ODYwIFRvcmJhbMSxL8Swem1pcg!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3137.4567!2d27.3621!3d38.1517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDA5JzA2LjEiTiAyN8KwMjEnNDMuNiJF!5e0!3m2!1str!2str!4v1620000000000" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

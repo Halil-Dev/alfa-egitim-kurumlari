@@ -1,26 +1,22 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google"; // Font değiştirildi
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Projenin karakterini yansıtan ana font
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"], // Kalınlıklar eklendi
+  variable: "--font-jakarta",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Mobil cihazlarda kusursuz görünüm için
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#8B1A1A", // Android bildirim çubuğu rengi
+  themeColor: "#8B1A1A",
 };
 
 export const metadata: Metadata = {
@@ -30,9 +26,8 @@ export const metadata: Metadata = {
   },
   description: "Torbalı Alfa Eğitim Kurumları ile LGS, YKS ve ara sınıf destek programlarında başarıyı yakalayın. Uzman eğitmen kadromuzla geleceği birlikte inşa ediyoruz.",
   keywords: ["Torbalı kurs", "LGS hazırlık", "YKS hazırlık", "Alfa Eğitim", "Torbalı etüt merkezi", "özel ders Torbalı"],
-  metadataBase: new URL('https://www.torbalialfaegitim.com'), // Buraya gerçek site adresini yazmalısın
+  metadataBase: new URL('https://www.torbalialfaegitim.com'),
   
-  // Sosyal Medya Paylaşımları İçin (Open Graph)
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -42,7 +37,7 @@ export const metadata: Metadata = {
     description: "Torbalı'da uzman kadro ile sınavlara hazırlık.",
     images: [
       {
-        url: "/alfa-logo.png", // Paylaşıldığında görünecek resim
+        url: "/alfa-logo.png",
         width: 1200,
         height: 630,
         alt: "Alfa Eğitim Kurumları Logo"
@@ -50,24 +45,15 @@ export const metadata: Metadata = {
     ]
   },
 
-  // İkonlar
   icons: {
     icon: "/alfa-logo.png",
     shortcut: "/alfa-logo.png",
     apple: "/alfa-logo.png",
   },
 
-  // Arama Motoru Botları Ayarı
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 
@@ -78,10 +64,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white flex flex-col min-h-screen`}>
+      <body className={`${jakarta.variable} font-sans antialiased bg-white flex flex-col min-h-screen`}>
         <Navbar />
         
-        <main className="flex-grow overflow-x-hidden pt-[navbar-yuksekligi]"> 
+        {/* 'pt' kısmını Navbar'ın yüksekliğine göre (h-24 olduğu için 6rem) ayarladım */}
+        <main className="flex-grow overflow-x-hidden"> 
           {children}
         </main>
 

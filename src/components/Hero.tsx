@@ -34,7 +34,7 @@ const Hero = async () => {
             {/* Ana Başlık */}
             <h1 className="text-3xl md:text-6xl lg:text-[82px] font-[1000] text-black leading-[1.1] lg:leading-[0.95] tracking-tight md:tracking-[-0.04em] mb-6 md:mb-10 uppercase">
               GELECEĞİ <br />
-              <span className="text-[#8B1A1A]">ALFA EĞİTİM</span> <br className="hidden md:block" />
+              <span className="text-[#8B1A1A]">ALFA EĞİTİM KURUMLARI</span> <br className="hidden md:block" />
               İLE İNŞA EDİN
             </h1>
             
