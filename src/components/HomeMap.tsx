@@ -54,8 +54,9 @@ const HomeMap = () => {
                 </div>
               </div>
 
+              {/* KRİTİK GÜNCELLEME: http -> https yapıldı */}
               <a 
-                href="http://googleusercontent.com/maps.google.com/7"
+                href="https://www.google.com/maps/dir/?api=1&destination=38.1524,27.3621"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-full md:w-auto items-center justify-center bg-alfa-bordo text-white px-8 py-4 md:px-12 md:py-6 rounded-2xl font-black text-center uppercase tracking-[0.2em] text-[10px] md:text-xs hover:bg-white hover:text-black transition-all shadow-xl active:scale-95 outline-none focus:ring-2 focus:ring-white"
@@ -66,11 +67,11 @@ const HomeMap = () => {
             </div>
           </div>
 
-          {/* Sağ Taraf: Harita */}
+          {/* Sağ Taraf: Harita - KRİTİK GÜNCELLEME: http -> https yapıldı */}
           <div className="flex-1 h-[300px] lg:h-auto relative lg:grayscale lg:opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
             <iframe 
               title="Alfa Eğitim Kurumları Torbalı Şubesi Google Harita Konumu" 
-              src="http://googleusercontent.com/maps.google.com/8"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3135.2443026926!2d27.3621!3d38.1524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDA5JzA4LjYiTiAyN8KwMjEnNDMuNiJF!5e0!3m2!1str!2str!4v1620000000000!5m2!1str!2str"
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

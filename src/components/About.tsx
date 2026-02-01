@@ -8,7 +8,7 @@ const About = () => {
           
           {/* Sol Taraf: Görsel Alanı */}
           <div className="relative w-full lg:w-1/2 min-h-[300px] lg:min-h-[500px] flex items-center justify-center">
-            {/* Dekoratif Arka Plan */}
+            {/* Dekoratif Arka Plan - Screen reader'dan gizlendi */}
             <div className="absolute -bottom-5 -left-5 w-40 h-40 lg:w-80 lg:h-80 bg-[#8B1A1A]/5 rounded-[2rem] lg:rounded-[4rem] -z-0" aria-hidden="true"></div>
             
             {/* Görsel Çerçevesi */}
@@ -43,7 +43,6 @@ const About = () => {
               </span>
             </h3>
             
-            {/* Ana metin kontrastı text-gray-600 olarak korundu (Lighthouse için uygundur) */}
             <p className="text-lg lg:text-2xl text-gray-700 font-bold leading-relaxed lg:leading-[1.8] mb-10 lg:mb-14">
               Alfa Eğitim Kurumları olarak, her öğrencinin potansiyelini keşfettiği bir başarı merkeziyiz. 
               Modern eğitim anlayışımızla Torbalı'da eğitime yön veriyoruz.
@@ -63,7 +62,7 @@ const About = () => {
                   </div>
                   <div>
                     <h4 className="font-black text-black uppercase text-[10px] lg:text-base tracking-widest mb-1 lg:mb-1.5">{item.title}</h4>
-                    {/* Kontrast için text-gray-400 -> text-gray-600 yapıldı (KRİTİK DÜZELTME) */}
+                    {/* Kontrast hatasını önlemek için text-gray-400 yerine text-gray-600 kullanıldı */}
                     <p className="text-gray-600 font-bold text-[8px] lg:text-xs uppercase tracking-wider">{item.desc}</p>
                   </div>
                 </div>
