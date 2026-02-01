@@ -1,4 +1,4 @@
-"use client"; // Scroll fonksiyonu için client component yaptık
+"use client";
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,28 +41,32 @@ const Announcements = () => {
   if (!announcements || announcements.length === 0) return null;
 
   return (
-    <section className="py-12 lg:py-24 bg-gray-50 overflow-hidden" id="duyurular">
+    <section className="py-12 lg:py-24 bg-gray-50 overflow-hidden" id="duyurular" aria-labelledby="announcements-title">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Başlık ve Oklar */}
         <div className="flex justify-between items-end mb-8 lg:mb-16">
           <div>
             <h2 className="text-[#8B1A1A] font-black text-[10px] lg:text-sm uppercase tracking-[0.2em] mb-2">Güncel</h2>
-            <h3 className="text-2xl lg:text-5xl font-[1000] text-black tracking-tighter uppercase leading-none">ETKİNLİK & DUYURU</h3>
+            <h3 id="announcements-title" className="text-2xl lg:text-5xl font-[1000] text-black tracking-tighter uppercase leading-none">
+              ETKİNLİK & DUYURU
+            </h3>
           </div>
           
           <div className="flex gap-2">
             <button 
               onClick={() => scroll('left')} 
-              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-black border border-gray-100 hover:bg-[#8B1A1A] hover:text-white transition-all"
+              aria-label="Önceki duyuruları gör"
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-black border border-gray-100 hover:bg-[#8B1A1A] hover:text-white transition-all focus:ring-2 focus:ring-[#8B1A1A] outline-none"
             >
-              ←
+              <span aria-hidden="true">←</span>
             </button>
             <button 
               onClick={() => scroll('right')} 
-              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-black border border-gray-100 hover:bg-[#8B1A1A] hover:text-white transition-all"
+              aria-label="Sonraki duyuruları gör"
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-black border border-gray-100 hover:bg-[#8B1A1A] hover:text-white transition-all focus:ring-2 focus:ring-[#8B1A1A] outline-none"
             >
-              →
+              <span aria-hidden="true">→</span>
             </button>
           </div>
         </div>
@@ -73,12 +77,10 @@ const Announcements = () => {
           className="flex gap-4 lg:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-10 -mx-4 px-4"
         >
           {announcements.map((item: any) => (
-            <div 
+            <article 
               key={item._id} 
               className="
-                min-w-[85%]       /* Mobilde %85 */
-                md:min-w-[45%]    /* Tablet %45 */
-                lg:min-w-[32%]    /* PC'de yaklaşık 3 kart yan yana */
+                min-w-[85%] md:min-w-[45%] lg:min-w-[32%]
                 snap-center bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-50 flex flex-col group hover:shadow-2xl transition-all duration-500
               "
             >
@@ -87,7 +89,7 @@ const Announcements = () => {
                 {item.image ? (
                   <Image 
                     src={urlFor(item.image).url()} 
-                    alt={item.title} 
+                    alt={`${item.title} - Alfa Eğitim Duyuru Görseli`} 
                     fill 
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -97,7 +99,9 @@ const Announcements = () => {
                 
                 {item.date && (
                   <div className="absolute top-4 left-4 z-10 bg-[#8B1A1A] text-white px-3 py-1.5 rounded-xl font-black text-[10px] uppercase shadow-md">
-                    {new Date(item.date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}
+                    <time dateTime={new Date(item.date).toISOString()}>
+                      {new Date(item.date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}
+                    </time>
                   </div>
                 )}
               </div>
@@ -108,19 +112,21 @@ const Announcements = () => {
                   <h4 className="text-lg md:text-2xl font-black text-black mb-3 leading-tight uppercase tracking-tighter line-clamp-2 italic">
                     {item.title}
                   </h4>
-                  <p className="text-gray-500 text-[12px] md:text-base font-bold leading-relaxed line-clamp-3">
+                  {/* Kontrast için text-gray-500 -> text-gray-600 yapıldı */}
+                  <p className="text-gray-600 text-[12px] md:text-base font-bold leading-relaxed line-clamp-3">
                     {item.content}
                   </p>
                 </div>
                 
                 <Link 
                   href={`/duyuru/${item._id}`} 
-                  className="w-full bg-black text-white py-4 md:py-5 rounded-2xl font-black uppercase text-[10px] md:text-xs tracking-[0.2em] text-center hover:bg-[#8B1A1A] transition-all shadow-lg active:scale-95"
+                  aria-label={`${item.title} duyurusu detaylarını incele`}
+                  className="w-full bg-black text-white py-4 md:py-5 rounded-2xl font-black uppercase text-[10px] md:text-xs tracking-[0.2em] text-center hover:bg-[#8B1A1A] transition-all shadow-lg active:scale-95 outline-none focus:ring-2 focus:ring-black"
                 >
                   DETAYLARI İNCELE ↗
                 </Link>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

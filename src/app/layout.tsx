@@ -1,31 +1,30 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google"; // Font değiştirildi
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-// Projenin karakterini yansıtan ana font
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"], // Kalınlıklar eklendi
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-jakarta",
+  display: 'swap', // Font yüklenene kadar sistem fontunu gösterir (LCP hızlandırır)
 });
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // maximumScale ve userScalable kaldırıldı veya esnetildi (Accessibility için kritik)
   themeColor: "#8B1A1A",
 };
 
 export const metadata: Metadata = {
   title: {
-    default: "Alfa Eğitim Kurumları | Torbalı'nın En Güçlü Eğitim Kadrosu",
+    default: "Alfa Eğitim Kurumları | Torbalı LGS & YKS Hazırlık Merkezi",
     template: "%s | Alfa Eğitim Kurumları"
   },
-  description: "Torbalı Alfa Eğitim Kurumları ile LGS, YKS ve ara sınıf destek programlarında başarıyı yakalayın. Uzman eğitmen kadromuzla geleceği birlikte inşa ediyoruz.",
-  keywords: ["Torbalı kurs", "LGS hazırlık", "YKS hazırlık", "Alfa Eğitim", "Torbalı etüt merkezi", "özel ders Torbalı"],
+  description: "Torbalı'nın öncü eğitim kurumu Alfa ile LGS ve YKS sınavlarına uzman kadro eşliğinde hazırlanın. Kişiye özel rehberlik ve butik eğitim anlayışı.",
+  keywords: ["Torbalı kurs", "LGS hazırlık", "YKS hazırlık", "Alfa Eğitim", "Torbalı etüt merkezi", "özel ders Torbalı", "İzmir kurs"],
   metadataBase: new URL('https://www.torbalialfaegitim.com'),
   
   openGraph: {
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     url: "https://www.torbalialfaegitim.com",
     siteName: "Alfa Eğitim Kurumları",
     title: "Alfa Eğitim Kurumları | Başarıyı Şansa Bırakmayın",
-    description: "Torbalı'da uzman kadro ile sınavlara hazırlık.",
+    description: "Torbalı'da uzman kadro ile sınavlara hazırlık programları.",
     images: [
       {
         url: "/alfa-logo.png",
@@ -54,6 +53,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -65,10 +71,14 @@ export default function RootLayout({
   return (
     <html lang="tr" className="scroll-smooth">
       <body className={`${jakarta.variable} font-sans antialiased bg-white flex flex-col min-h-screen`}>
+        {/* Screen Reader için ana içeriğe atla linki (Accessibility skorunu artırır) */}
+        <a href="#main-content" className="sr-only focus:not-sr-only bg-[#8B1A1A] text-white p-2 text-center">
+          Ana içeriğe atla
+        </a>
+        
         <Navbar />
         
-        {/* 'pt' kısmını Navbar'ın yüksekliğine göre (h-24 olduğu için 6rem) ayarladım */}
-        <main className="flex-grow overflow-x-hidden"> 
+        <main id="main-content" className="flex-grow overflow-x-hidden"> 
           {children}
         </main>
 
