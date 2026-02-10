@@ -176,8 +176,9 @@ const IletisimPage = () => {
             </div>
           </div>
 
-          <div className="flex-1 h-[300px] lg:h-auto relative grayscale opacity-80">
+          <div className="flex-1 h-[300px] lg:h-auto relative lg:grayscale lg:opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
             <iframe 
+              title="Alfa Eğitim Kurumları Torbalı Şubesi Google Harita Konumu"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3137.4567!2d27.3621!3d38.1517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDA5JzA2LjEiTiAyN8KwMjEnNDMuNiJF!5e0!3m2!1str!2str!4v1620000000000" 
               width="100%" 
               height="100%" 
